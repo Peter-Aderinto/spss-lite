@@ -5,6 +5,8 @@ six fictional sample records already loaded, or upload a CSV to see its
 frequencies, charts, missing values, and cross-tabulations. No credentials,
 external database, or backend setup is required.
 
+**[Open the live demo](https://spss-lite.vercel.app)** · [Source on GitHub](https://github.com/Peter-Aderinto/spss-lite)
+
 ## Screenshots
 
 Captured from the actual local production build with the fictional sample.
@@ -102,6 +104,21 @@ refresh behavior, mobile navigation, Escape dismissal, and page overflow at
 in those checks. These checks do not establish full accessibility conformance.
 
 ## Deployment
+
+Published at **https://spss-lite.vercel.app** in the existing Vercel workspace.
+The project is connected to `Peter-Aderinto/spss-lite`; the release push to
+`main` automatically created a successful production deployment.
+The public domain was verified without Vercel login cookies or bypass headers.
+Live Chromium checks passed for all application views, row search, CSV export,
+invalid/oversized/valid uploads, clipboard feedback, disabled preview controls,
+reload behavior, mobile navigation, and page overflow. No console or page
+errors were observed.
+
+This is a single-page dashboard at `/`, with view selection held in React
+state. Refreshing `/` restores the seeded fictional sample and dashboard.
+`/dashboard`, `/transactions`, and `/invoices` are not application routes and
+return 404; this project does not implement the separate FlowPay application's
+URL structure or invoice persistence.
 
 Deploy as a static **Vite** project, using Node.js **24.x**, repository root `.`,
 `npm ci`, `npm run build`, and output directory `dist`. No environment variables,
