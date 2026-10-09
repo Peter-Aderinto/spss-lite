@@ -4,7 +4,7 @@ import { UploadZone } from './UploadZone'
 const features = [
   ['1', 'Automated Frequencies & Percentages', 'We instantly calculate the frequency and percentage for each response in your survey.', '📊', 'bg-emerald-50 text-emerald-600'],
   ['2', 'Cross-Tabulations & Distributions', 'Explore relationships between variables with automated cross-tabs and distributions.', '▦', 'bg-blue-50 text-blue-600'],
-  ['3', 'Export-Ready Visual Charts & Tables', 'Get beautiful charts and clean tables ready to include in your reports and dissertations.', '◕', 'bg-violet-50 text-violet-600'],
+  ['3', 'Visual Charts & CSV Tables', 'Explore charts and download dataset or frequency tables as CSV.', '◕', 'bg-violet-50 text-violet-600'],
 ]
 
 export function EmptyDashboard({ onUpload, onSample }) {
@@ -31,7 +31,7 @@ export function EmptyDashboard({ onUpload, onSample }) {
           </article>)}
         </div>
       </section>
-      <div className="mt-6 flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50/70 px-3 py-3 text-[11px] text-slate-600"><Info size={15} className="shrink-0 text-blue-600"/>Tip: Upload a CSV file to get started. Your data is processed securely in your browser and is not stored on our servers.</div>
+      <div className="mt-6 flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50/70 px-3 py-3 text-[11px] text-slate-600"><Info size={15} className="shrink-0 text-blue-600"/>Tip: Upload a CSV file to get started. Your data is processed locally in your browser and is not stored on our servers.</div>
     </>
   )
 }

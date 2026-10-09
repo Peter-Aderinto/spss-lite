@@ -4,9 +4,14 @@ import { FolderOpen, UploadCloud } from 'lucide-react'
 export function UploadZone({ onUpload, compact = false }) {
   const input = useRef(null)
   const [dragging, setDragging] = useState(false)
+  const [error, setError] = useState('')
   const accept = (files) => {
     const file = files?.[0]
-    if (file && (file.name.toLowerCase().endsWith('.csv') || file.type === 'text/csv')) onUpload(file)
+    if (!file) return
+    if (!file.name.toLowerCase().endsWith('.csv')) { setError('Choose a CSV file.'); return }
+    if (file.size > 10 * 1024 * 1024) { setError('Choose a CSV file no larger than 10MB.'); return }
+    setError('')
+    onUpload(file)
   }
   return (
     <div onDragOver={e => { e.preventDefault(); setDragging(true) }} onDragLeave={() => setDragging(false)} onDrop={e => { e.preventDefault(); setDragging(false); accept(e.dataTransfer.files) }}
@@ -15,9 +20,10 @@ export function UploadZone({ onUpload, compact = false }) {
       <h2 className={`mt-4 font-semibold ${compact ? 'text-sm' : 'text-base md:text-lg'}`}>{compact ? 'Drag & drop your CSV file here' : 'Upload your research data to get instant survey insights.'}</h2>
       {!compact && <p className="mt-2 text-sm text-slate-600">Drag & drop your CSV file here</p>}
       <span className="my-3 text-xs text-muted">or</span>
-      <input ref={input} type="file" accept=".csv,text/csv" className="hidden" onChange={e => accept(e.target.files)}/>
+      <input ref={input} type="file" accept=".csv,text/csv" className="hidden" aria-label="Upload survey CSV" onChange={e => { accept(e.target.files); e.target.value = '' }}/>
       <button onClick={() => input.current?.click()} className="flex items-center gap-2 rounded-md bg-brand px-7 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-600"><FolderOpen size={18}/>Browse Files</button>
       <p className="mt-4 text-xs text-slate-600">Supports CSV files up to 10MB</p>
+      {error && <p role="alert" className="mt-2 text-xs text-red-700">{error}</p>}
     </div>
   )
 }

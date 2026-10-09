@@ -9,8 +9,8 @@ export function CrossTabsView({ dataset, rows, onNavigate }) {
   const cVar = colVar || fields[1] || fields[0]
   const matrix = useMemo(() => {
     if (!rVar || !cVar) return { rs:[], cs:[], counts:{} }
-    const rs=[...new Set(rows.map(r=>String(r[rVar] || 'Missing')))], cs=[...new Set(rows.map(r=>String(r[cVar] || 'Missing')))]
-    const counts={}; rows.forEach(r=>{ const a=String(r[rVar]||'Missing'), b=String(r[cVar]||'Missing'); counts[`${a}|||${b}`]=(counts[`${a}|||${b}`]||0)+1 })
+    const rs=[...new Set(rows.map(r=>String(r[rVar] === '' || r[rVar] == null ? 'Missing' : r[rVar])))], cs=[...new Set(rows.map(r=>String(r[cVar] === '' || r[cVar] == null ? 'Missing' : r[cVar])))]
+    const counts={}; rows.forEach(r=>{ const a=String(r[rVar] === '' || r[rVar] == null ? 'Missing' : r[rVar]), b=String(r[cVar] === '' || r[cVar] == null ? 'Missing' : r[cVar]); counts[`${a}|||${b}`]=(counts[`${a}|||${b}`]||0)+1 })
     return {rs,cs,counts}
   }, [rows,rVar,cVar])
   if (!dataset) return <><ViewHeader title="Cross Tabs" description="Explore relationships between two survey variables."/><EmptyData onNavigate={onNavigate}/></>
