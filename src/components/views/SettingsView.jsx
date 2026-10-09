@@ -1,0 +1,8 @@
+import { useState } from 'react'
+import { Card, ViewHeader } from './ViewShared'
+
+function Toggle({ on, setOn }) { return <button role="switch" aria-checked={on} onClick={()=>setOn(!on)} className={`relative h-6 w-11 rounded-full transition ${on?'bg-brand':'bg-slate-300'}`}><span className={`absolute top-1 h-4 w-4 rounded-full bg-white transition ${on?'left-6':'left-1'}`}/></button> }
+export function SettingsView() {
+  const [auto, setAuto] = useState(true), [missing, setMissing] = useState(true), [tips, setTips] = useState(false)
+  return <><ViewHeader title="Settings" description="Manage analysis preferences and default behavior."/><div className="grid gap-4 lg:grid-cols-2"><Card><h2 className="text-sm font-bold">Analysis defaults</h2><div className="mt-4 space-y-5">{[['Automatically detect variable types',auto,setAuto],['Exclude missing values from percentages',missing,setMissing],['Show contextual tips',tips,setTips]].map(([label,on,set])=><div key={label} className="flex items-center justify-between gap-4"><span className="text-xs font-medium">{label}</span><Toggle on={on} setOn={set}/></div>)}</div></Card><Card><h2 className="text-sm font-bold">Export preferences</h2><label className="mt-4 block text-xs font-semibold">Default table format<select className="mt-2 w-full rounded-lg border border-line bg-white p-3 font-normal"><option>CSV</option><option>Excel compatible CSV</option></select></label><label className="mt-4 block text-xs font-semibold">Percentage decimals<select className="mt-2 w-full rounded-lg border border-line bg-white p-3 font-normal"><option>1 decimal place</option><option>2 decimal places</option></select></label></Card></div></>
+}
